@@ -30,14 +30,14 @@ function Disclaimer() {
       <Navbar />
       <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         <div className="flex items-center gap-3">
-          <div className="grid h-10 w-10 place-items-center rounded-lg bg-amber/10 text-amber">
+          <div className="grid h-10 w-10 place-items-center rounded-lg bg-primary/10 text-primary">
             <AlertTriangle className="h-5 w-5" />
           </div>
           <h1 className="text-4xl font-bold">Disclaimer</h1>
         </div>
         <p className="mt-2 text-sm text-muted-foreground">Last updated: May 13, 2026</p>
 
-        <div className="mt-6 rounded-2xl border border-amber/30 bg-amber/5 p-5 text-sm text-amber">
+        <div className="mt-6 rounded-2xl border border-primary/30 bg-primary/5 p-5 text-sm text-primary">
           ⚠️ Important: TradeAI is NOT a SEBI registered investment advisor. All content is for educational purposes only.
         </div>
 
