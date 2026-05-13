@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { TrendingUp, Wallet } from "lucide-react";
+import { TrendingUp, Wallet, ArrowLeft } from "lucide-react";
 import { useStore } from "@/lib/analysis-store";
 import { Button } from "@/components/ui/button";
 
@@ -30,6 +30,11 @@ export function Navbar({ variant = "marketing" }: { variant?: "marketing" | "app
         )}
 
         <div className="flex items-center gap-3">
+          {variant === "app" && (
+            <Button asChild size="sm" variant="ghost" className="text-muted-foreground hover:text-foreground">
+              <Link to="/"><ArrowLeft className="h-4 w-4" /> <span className="hidden sm:inline">Home</span></Link>
+            </Button>
+          )}
           {variant === "app" && (
             <div className="hidden items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-sm sm:flex">
               <Wallet className="h-3.5 w-3.5 text-primary" />
