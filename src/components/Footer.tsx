@@ -14,7 +14,7 @@ export function Footer() {
               <span className="text-lg font-semibold">TradeAI</span>
             </div>
             <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-              Apni trade ka full analysis — sirf ₹9 mein. AI-powered insights for Indian traders.
+              Get a full analysis of your trade — for just ₹9. AI-powered insights for Indian traders.
             </p>
           </div>
 

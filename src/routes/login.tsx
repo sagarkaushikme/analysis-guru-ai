@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/login")({
-  head: () => ({ meta: [{ title: "Login — TradeAI" }, { name: "description", content: "TradeAI account mein login karo." }] }),
+  head: () => ({ meta: [{ title: "Login — TradeAI" }, { name: "description", content: "Log in to your TradeAI account." }] }),
   component: Login,
 });
 
@@ -18,7 +18,7 @@ function Login() {
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !password) return toast.error("Email aur password dono fill karo");
+    if (!email || !password) return toast.error("Please fill in both email and password");
     toast.success("Logged in!");
     nav({ to: "/upload" });
   };
@@ -36,7 +36,7 @@ function Login() {
       <Button type="submit" className="w-full bg-gradient-primary text-primary-foreground hover:opacity-90">Login</Button>
     </form>
     <p className="mt-4 text-center text-sm text-muted-foreground">
-      Naye ho? <Link to="/signup" className="text-primary hover:underline">Sign up karo</Link>
+      New here? <Link to="/signup" className="text-primary hover:underline">Sign up</Link>
     </p>
   </AuthShell>;
 }
@@ -55,7 +55,7 @@ export function AuthShell({ children, mode }: { children: React.ReactNode; mode:
         <div className="rounded-2xl border border-border bg-card p-6 shadow-card sm:p-8">
           <h1 className="text-2xl font-bold">{mode === "login" ? "Welcome back" : "Create your account"}</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            {mode === "login" ? "Apni trade dashboard pe wapas aao." : "2 free analyses milenge signup pe."}
+            {mode === "login" ? "Get back to your trade dashboard." : "You'll get 2 free analyses on signup."}
           </p>
           <div className="mt-6">{children}</div>
           <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">

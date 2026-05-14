@@ -54,7 +54,7 @@ async function handleBuy(pkg: typeof PACKAGES[0]) {
     const API_URL = import.meta.env.VITE_API_URL || 
                    "http://localhost:3001/api";
 
-    // Step 1: Order banao
+    // Step 1: Create order
     const orderRes = await fetch(`${API_URL}/create-order`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -94,17 +94,17 @@ async function handleBuy(pkg: typeof PACKAGES[0]) {
         if (verifyRes.ok) {
           store.addCredits(pkg.credits);
           toast.success(
-            `${pkg.credits} credits add ho gaye! 🎉`
+            `${pkg.credits} credits added! 🎉`
           );
         } else {
-          toast.error("Payment verify fail — support se contact karo");
+          toast.error("Payment verification failed — please contact support");
         }
       },
       prefill: { name: "Trader" },
       theme: { color: "#6C63FF" },
       modal: {
         ondismiss: function () {
-          toast.error("Payment cancel kar diya");
+          toast.error("Payment cancelled");
         },
       },
     };
@@ -114,7 +114,7 @@ async function handleBuy(pkg: typeof PACKAGES[0]) {
 
   } catch (err) {
     console.error(err);
-    toast.error("Kuch galat ho gaya — try again");
+    toast.error("Something went wrong — please try again");
   }
 }
 

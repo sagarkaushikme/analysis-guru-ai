@@ -8,10 +8,10 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "TradeAI — Apni Trade Ka Full Analysis Sirf ₹9 Mein" },
-      { name: "description", content: "Screenshot upload karo, AI se poori trade breakdown pao. Pattern, mistakes, scenarios, roast — sab kuch ₹9 mein." },
+      { title: "TradeAI — Full Trade Analysis for Just ₹9" },
+      { name: "description", content: "Upload a screenshot, get a full AI breakdown of your trade. Pattern, mistakes, scenarios, roast — everything for ₹9." },
       { property: "og:title", content: "TradeAI — AI Trade Analysis" },
-      { property: "og:description", content: "Apni trade ka full AI breakdown — pattern, mistakes, emotion, roast. Sirf ₹9 mein." },
+      { property: "og:description", content: "Full AI breakdown of your trade — pattern, mistakes, emotion, roast. Just ₹9." },
     ],
   }),
   component: Landing,
@@ -33,17 +33,17 @@ function Landing() {
                 AI-powered • Made for Indian traders
               </div>
               <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-                Apni Trade Ka <span className="bg-gradient-primary bg-clip-text text-transparent">Full Analysis</span> — Sirf ₹9 Mein
+                Get a <span className="bg-gradient-primary bg-clip-text text-transparent">Full Analysis</span> of Your Trade — for Just ₹9
               </h1>
               <p className="mt-5 max-w-xl text-lg text-muted-foreground">
-                Screenshot upload karo, AI se poori breakdown pao. Pattern, mistakes, scenarios, roast — sab kuch.
+                Upload a screenshot and get a complete AI breakdown. Pattern, mistakes, scenarios, roast — all of it.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button asChild size="lg" className="bg-gradient-primary text-primary-foreground hover:opacity-90">
-                  <Link to="/upload">Free Mein Try Karo <ArrowRight className="ml-1 h-4 w-4" /></Link>
+                  <Link to="/upload">Try It Free <ArrowRight className="ml-1 h-4 w-4" /></Link>
                 </Button>
                 <Button asChild size="lg" variant="outline">
-                  <Link to="/dashboard">Demo Dekho</Link>
+                  <Link to="/dashboard">See Demo</Link>
                 </Button>
               </div>
               <div className="mt-6 flex items-center gap-4 text-sm text-muted-foreground">
@@ -91,7 +91,7 @@ function Landing() {
                   ))}
                 </div>
                 <div className="mt-4 rounded-lg border border-primary/30 bg-primary/5 p-3 text-sm italic text-muted-foreground">
-                  "Bhai ye trade FOMO lag raha hai — entry pehle se 2% upar tha…"
+                  "Looks like a FOMO trade — entry was already 2% above..."
                 </div>
               </div>
             </div>
@@ -102,14 +102,14 @@ function Landing() {
       {/* Features */}
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
         <div className="text-center">
-          <h2 className="text-3xl font-bold sm:text-4xl">Sab kuch jo trader ko chahiye</h2>
-          <p className="mt-3 text-muted-foreground">Ek screenshot, 20+ deep insights.</p>
+          <h2 className="text-3xl font-bold sm:text-4xl">Everything a trader needs</h2>
+          <p className="mt-3 text-muted-foreground">One screenshot, 20+ deep insights.</p>
         </div>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {[
-            { icon: BarChart3, title: "20+ Metrics", desc: "Trade score, pattern detection, R:R, win probability, risk analysis — sab covered." },
-            { icon: Brain, title: "Emotion Analyzer", desc: "FOMO, revenge trading, overconfidence — AI catch karta hai tumhari emotional mistakes." },
-            { icon: Flame, title: "AI Roast Mode", desc: "Funny, brutal, honest feedback. Mirror dekhna kabhi-kabhi zaroori hota hai." },
+            { icon: BarChart3, title: "20+ Metrics", desc: "Trade score, pattern detection, R:R, win probability, risk analysis — all covered." },
+            { icon: Brain, title: "Emotion Analyzer", desc: "FOMO, revenge trading, overconfidence — AI catches your emotional mistakes." },
+            { icon: Flame, title: "AI Roast Mode", desc: "Funny, brutal, honest feedback. Looking in the mirror is sometimes necessary." },
           ].map((f) => (
             <div key={f.title} className="group rounded-2xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-glow">
               <div className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-primary shadow-glow">
@@ -126,13 +126,13 @@ function Landing() {
       <section className="border-y border-border/60 bg-card/30">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
           <div className="text-center">
-            <h2 className="text-3xl font-bold sm:text-4xl">3 step. 15 seconds. Done.</h2>
+            <h2 className="text-3xl font-bold sm:text-4xl">3 steps. 15 seconds. Done.</h2>
           </div>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {[
-              { n: "01", title: "Screenshot upload karo", desc: "Zerodha, Upstox, Groww, TradingView — koi bhi app." },
-              { n: "02", title: "AI analyze karta hai", desc: "15 seconds mein deep breakdown — pattern, risk, emotion, sab." },
-              { n: "03", title: "Full dashboard milta hai", desc: "Score, mistakes, action points, roast — sab clear." },
+              { n: "01", title: "Upload a screenshot", desc: "Zerodha, Upstox, Groww, TradingView — any app works." },
+              { n: "02", title: "AI analyzes it", desc: "A deep breakdown in 15 seconds — pattern, risk, emotion, all of it." },
+              { n: "03", title: "Get a full dashboard", desc: "Score, mistakes, action points, roast — all clear." },
             ].map((s) => (
               <div key={s.n} className="relative rounded-2xl border border-border bg-card p-6">
                 <div className="bg-gradient-primary bg-clip-text text-5xl font-bold text-transparent">{s.n}</div>
@@ -147,8 +147,8 @@ function Landing() {
       {/* Pricing */}
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
         <div className="text-center">
-          <h2 className="text-3xl font-bold sm:text-4xl">Pricing — sasta aur honest</h2>
-          <p className="mt-3 text-muted-foreground">Jitna chaiye utna lo. No subscription trap.</p>
+          <h2 className="text-3xl font-bold sm:text-4xl">Pricing — cheap and honest</h2>
+          <p className="mt-3 text-muted-foreground">Take what you need. No subscription trap.</p>
         </div>
         <div className="mt-12">
           <PricingCards />
@@ -158,12 +158,12 @@ function Landing() {
       {/* Testimonials */}
       <section className="border-t border-border/60 bg-card/30">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
-          <h2 className="text-center text-3xl font-bold sm:text-4xl">Traders ka pyaar</h2>
+          <h2 className="text-center text-3xl font-bold sm:text-4xl">Loved by traders</h2>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {[
-              { name: "Rahul K.", quote: "FOMO trades band ho gaye. ₹49 ke pack mein mera mahine ka ₹5,000 bach gaya." },
-              { name: "Neha S.", quote: "Roast mode is gold. Ek baar dekha aur dimaag thanda ho gaya." },
-              { name: "Aman P.", quote: "Pattern detection bilkul accurate. Demo dekha aur turant medium plan le liya." },
+              { name: "Rahul K.", quote: "FOMO trades stopped. The ₹49 pack saved me ₹5,000 a month." },
+              { name: "Neha S.", quote: "Roast mode is gold. One look and my head cooled down." },
+              { name: "Aman P.", quote: "Pattern detection is spot on. Saw the demo and immediately took the medium plan." },
             ].map((t) => (
               <div key={t.name} className="rounded-2xl border border-border bg-card p-6">
                 <div className="flex gap-0.5 text-warning">
@@ -189,10 +189,10 @@ function Landing() {
           <div className="absolute inset-0 bg-hero-glow" />
           <div className="relative">
             <Upload className="mx-auto h-10 w-10 text-primary" />
-            <h2 className="mt-4 text-3xl font-bold sm:text-4xl">Pehli analysis free hai</h2>
-            <p className="mt-3 text-muted-foreground">Signup karo, 2 free credits milenge. Try karo, fir decide karo.</p>
+            <h2 className="mt-4 text-3xl font-bold sm:text-4xl">Your first analysis is free</h2>
+            <p className="mt-3 text-muted-foreground">Sign up and get 2 free credits. Try it, then decide.</p>
             <Button asChild size="lg" className="mt-7 bg-gradient-primary text-primary-foreground hover:opacity-90">
-              <Link to="/signup">Free Account Banao <ArrowRight className="ml-1 h-4 w-4" /></Link>
+              <Link to="/signup">Create Free Account <ArrowRight className="ml-1 h-4 w-4" /></Link>
             </Button>
           </div>
         </div>
