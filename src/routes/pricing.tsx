@@ -8,20 +8,20 @@ export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
       { title: "Pricing — TradeAI" },
-      { name: "description", content: "TradeAI ke pricing plans — ₹9 se shuru. No subscription." },
+      { name: "description", content: "TradeAI pricing plans — starting at ₹9. No subscription." },
       { property: "og:title", content: "Pricing — TradeAI" },
-      { property: "og:description", content: "Sasta aur honest pricing. ₹9 mein single analysis." },
+      { property: "og:description", content: "Cheap and honest pricing. ₹9 for a single analysis." },
     ],
   }),
   component: Pricing,
 });
 
 const FAQ = [
-  { q: "Kya yeh SEBI registered hai?", a: "Nahi, yeh educational tool hai. Hum trading advice nahi dete — sirf AI-powered analysis aur insights provide karte hain. Apne trades ka decision khud lo." },
-  { q: "Konsi apps ke screenshots kaam karte hain?", a: "Zerodha Kite, Upstox, Angel One, Groww, TradingView — saare popular apps support hai. Koi bhi clear chart screenshot chalega." },
-  { q: "Refund policy?", a: "Analysis successfully ho gayi toh refund nahi milta — credits use ho gaye. Lekin agar technical issue ki wajah se analysis fail ho jaye toh credit wapas mil jaata hai." },
-  { q: "Credits expire hote hain?", a: "Nahi! Ek baar buy kiye, kabhi bhi use karo. No expiry." },
-  { q: "Payment kaise hota hai?", a: "Razorpay ke through — UPI, cards, net banking sab accept hai. Secure aur instant." },
+  { q: "Is this SEBI registered?", a: "No, this is an educational tool. We don't give trading advice — we only provide AI-powered analysis and insights. Make your own trading decisions." },
+  { q: "Which app screenshots work?", a: "Zerodha Kite, Upstox, Angel One, Groww, TradingView — all popular apps are supported. Any clear chart screenshot works." },
+  { q: "Refund policy?", a: "Once an analysis is successfully completed, no refund is given — credits have been used. However, if an analysis fails due to a technical issue, the credit is restored." },
+  { q: "Do credits expire?", a: "No! Once bought, use them anytime. No expiry." },
+  { q: "How does payment work?", a: "Through Razorpay — UPI, cards, net banking are all accepted. Secure and instant." },
 ];
 
 function Pricing() {
@@ -31,8 +31,8 @@ function Pricing() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-hero-glow" />
         <div className="relative mx-auto max-w-7xl px-4 py-20 text-center sm:px-6">
-          <h1 className="text-4xl font-bold sm:text-5xl">Sasta. Honest. <span className="bg-gradient-primary bg-clip-text text-transparent">No subscription.</span></h1>
-          <p className="mx-auto mt-4 max-w-xl text-muted-foreground">Jitna chaiye utna lo. Credits expire nahi hote.</p>
+          <h1 className="text-4xl font-bold sm:text-5xl">Cheap. Honest. <span className="bg-gradient-primary bg-clip-text text-transparent">No subscription.</span></h1>
+          <p className="mx-auto mt-4 max-w-xl text-muted-foreground">Take what you need. Credits never expire.</p>
         </div>
       </section>
 

@@ -8,7 +8,7 @@ import { store, useStore } from "@/lib/analysis-store";
 import { Inbox } from "lucide-react";
 
 export const Route = createFileRoute("/history")({
-  head: () => ({ meta: [{ title: "History — TradeAI" }, { name: "description", content: "Apni saari past trade analyses ek jagah." }] }),
+  head: () => ({ meta: [{ title: "History — TradeAI" }, { name: "description", content: "All your past trade analyses in one place." }] }),
   component: History,
 });
 
@@ -33,7 +33,7 @@ function History() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h1 className="text-3xl font-bold">Analysis History</h1>
-            <p className="mt-1 text-sm text-muted-foreground">Saari past analyses, ek jagah.</p>
+            <p className="mt-1 text-sm text-muted-foreground">All your past analyses, in one place.</p>
           </div>
           <div className="flex gap-3">
             <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-[160px]" />
@@ -52,8 +52,8 @@ function History() {
         {rows.length === 0 ? (
           <div className="mt-16 flex flex-col items-center gap-4 rounded-2xl border border-dashed border-border bg-card py-20 text-center">
             <Inbox className="h-10 w-10 text-muted-foreground" />
-            <p className="text-lg font-semibold">Abhi tak koi analysis nahi</p>
-            <p className="text-sm text-muted-foreground">Upload karo!</p>
+            <p className="text-lg font-semibold">No analyses yet</p>
+            <p className="text-sm text-muted-foreground">Upload one to get started!</p>
             <Button asChild className="bg-gradient-primary text-primary-foreground hover:opacity-90">
               <Link to="/upload">Upload Trade</Link>
             </Button>

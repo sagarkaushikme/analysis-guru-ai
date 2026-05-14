@@ -6,7 +6,7 @@ export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
       { title: "Privacy Policy — TradeAI" },
-      { name: "description", content: "TradeAI privacy policy — kaise hum aapka data handle karte hain." },
+      { name: "description", content: "TradeAI privacy policy — how we handle your data." },
       { property: "og:title", content: "Privacy Policy — TradeAI" },
       { property: "og:description", content: "How TradeAI collects, uses and protects your data." },
     ],
@@ -15,13 +15,13 @@ export const Route = createFileRoute("/privacy")({
 });
 
 const SECTIONS = [
-  { h: "1. Information We Collect", p: "Hum aapka name, email, payment info aur trade screenshots collect karte hain jab aap upload karte ho. Screenshots sirf analysis ke liye process hote hain." },
-  { h: "2. How We Use Your Data", p: "Data ka use sirf service deliver karne, payment process karne aur product improve karne ke liye hota hai. Hum aapka data bechte nahi." },
-  { h: "3. Screenshot Storage", p: "Uploaded screenshots 30 din ke baad automatically delete ho jaate hain. Aap kabhi bhi manually delete kar sakte ho apne dashboard se." },
-  { h: "4. Third-Party Services", p: "Hum Razorpay (payments), Cloud hosting providers, aur AI processing APIs use karte hain. Sab GDPR/Indian DPDP compliant hain." },
-  { h: "5. Cookies", p: "Essential cookies session management ke liye use hote hain. Analytics cookies anonymous hain." },
-  { h: "6. Your Rights", p: "Aap kabhi bhi apna data export, delete ya correct kar sakte ho. Email karo support@tradeai.in." },
-  { h: "7. Contact", p: "Privacy questions ke liye: privacy@tradeai.in" },
+  { h: "1. Information We Collect", p: "We collect your name, email, payment info and trade screenshots when you upload them. Screenshots are processed only for analysis." },
+  { h: "2. How We Use Your Data", p: "Your data is used solely to deliver the service, process payments and improve the product. We do not sell your data." },
+  { h: "3. Screenshot Storage", p: "Uploaded screenshots are automatically deleted after 30 days. You can also delete them manually at any time from your dashboard." },
+  { h: "4. Third-Party Services", p: "We use Razorpay (payments), cloud hosting providers, and AI processing APIs. All are GDPR / Indian DPDP compliant." },
+  { h: "5. Cookies", p: "Essential cookies are used for session management. Analytics cookies are anonymous." },
+  { h: "6. Your Rights", p: "You can export, delete or correct your data at any time. Email support@tradeai.in." },
+  { h: "7. Contact", p: "For privacy questions: privacy@tradeai.in" },
 ];
 
 function Privacy() {

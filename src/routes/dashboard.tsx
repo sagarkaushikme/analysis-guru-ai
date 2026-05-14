@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
-  head: () => ({ meta: [{ title: "Trade Dashboard — TradeAI" }, { name: "description", content: "AI ka full trade breakdown — score, mistakes, scenarios, roast." }] }),
+  head: () => ({ meta: [{ title: "Trade Dashboard — TradeAI" }, { name: "description", content: "Full AI trade breakdown — score, mistakes, scenarios, roast." }] }),
   component: Dashboard,
 });
 
@@ -108,7 +108,7 @@ function Dashboard() {
               </div>
               <div className="rounded-xl border border-danger/40 bg-danger/10 p-4">
                 <div className="text-xs uppercase tracking-wider text-danger">Revenge Trading</div>
-                <div className="mt-1 font-semibold">High — last 2 trades loss the</div>
+                <div className="mt-1 font-semibold">High — last 2 trades were losses</div>
               </div>
               <div className="rounded-xl border border-success/40 bg-success/10 p-4">
                 <div className="text-xs uppercase tracking-wider text-success">Risk Management</div>
@@ -130,7 +130,7 @@ function Dashboard() {
                   <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-warning" />
                   <div>
                     <div className="text-sm font-semibold">{m}</div>
-                    <div className="text-xs text-muted-foreground">Iska impact future trades pe ho sakta hai — review karo.</div>
+                    <div className="text-xs text-muted-foreground">This may impact future trades — review it.</div>
                   </div>
                 </li>
               ))}
@@ -261,7 +261,7 @@ function Dashboard() {
         <div className="rounded-2xl border border-border bg-card p-6 text-center">
           <p className="text-sm text-muted-foreground">Upload → Score → Emotion → Suggestions → Repeat</p>
           <Button asChild size="lg" className="mt-4 bg-gradient-primary text-primary-foreground hover:opacity-90">
-            <Link to="/upload">+ Nayi Trade Upload Karo <ArrowRight className="ml-1 h-4 w-4" /></Link>
+            <Link to="/upload">+ Upload a New Trade <ArrowRight className="ml-1 h-4 w-4" /></Link>
           </Button>
         </div>
       </main>
