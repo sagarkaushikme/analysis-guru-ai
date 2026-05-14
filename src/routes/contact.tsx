@@ -12,7 +12,7 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — TradeAI" },
-      { name: "description", content: "TradeAI team se baat karo — support, feedback ya partnership ke liye." },
+      { name: "description", content: "Get in touch with the TradeAI team — for support, feedback or partnerships." },
       { property: "og:title", content: "Contact TradeAI" },
       { property: "og:description", content: "Reach out for support or partnerships." },
     ],
@@ -28,7 +28,7 @@ function Contact() {
         <div className="absolute inset-0 bg-hero-glow" />
         <div className="relative mx-auto max-w-4xl px-4 py-16 text-center sm:px-6">
           <h1 className="text-4xl font-bold sm:text-5xl">Get in <span className="bg-gradient-primary bg-clip-text text-transparent">Touch</span></h1>
-          <p className="mx-auto mt-4 max-w-xl text-muted-foreground">Sawal, feedback, ya partnership — hum sun rahe hain.</p>
+          <p className="mx-auto mt-4 max-w-xl text-muted-foreground">Questions, feedback, or partnerships — we're listening.</p>
         </div>
       </section>
 
@@ -54,7 +54,7 @@ function Contact() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            toast.success("Message bhej diya — hum 24 ghante mein reply karenge.");
+            toast.success("Message sent — we'll reply within 24 hours.");
             (e.target as HTMLFormElement).reset();
           }}
           className="space-y-4 rounded-2xl border border-border bg-card p-6"
@@ -69,7 +69,7 @@ function Contact() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="msg">Message</Label>
-            <Textarea id="msg" required rows={5} placeholder="Kya bolna hai?" />
+            <Textarea id="msg" required rows={5} placeholder="What would you like to say?" />
           </div>
           <Button type="submit" className="w-full bg-gradient-primary text-primary-foreground hover:opacity-90">Send Message</Button>
         </form>

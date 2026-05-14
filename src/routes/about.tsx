@@ -7,19 +7,19 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About — TradeAI" },
-      { name: "description", content: "TradeAI ke baare mein jaano — AI-powered trade analysis platform built for Indian retail traders." },
+      { name: "description", content: "Learn about TradeAI — an AI-powered trade analysis platform built for Indian retail traders." },
       { property: "og:title", content: "About TradeAI" },
-      { property: "og:description", content: "Hum kyu bana rahe hain TradeAI — Indian traders ke liye honest AI analysis." },
+      { property: "og:description", content: "Why we're building TradeAI — honest AI analysis for Indian traders." },
     ],
   }),
   component: About,
 });
 
 const VALUES = [
-  { icon: Brain, title: "AI-First", text: "Har analysis advanced LLM aur pattern recognition ke through milta hai — guesswork nahi." },
-  { icon: Target, title: "Honest Feedback", text: "Hum sirf wahi bolte hain jo data dikhata hai. No hype, no fake gurus." },
-  { icon: Users, title: "Built for India", text: "Hinglish UI, Indian brokers, NSE/BSE patterns — sab kuch local trader ke liye tuned." },
-  { icon: Zap, title: "Fast & Affordable", text: "₹9 mein full analysis, 30 second mein. Subscription nahi, fair pricing." },
+  { icon: Brain, title: "AI-First", text: "Every analysis is powered by advanced LLMs and pattern recognition — no guesswork." },
+  { icon: Target, title: "Honest Feedback", text: "We only say what the data shows. No hype, no fake gurus." },
+  { icon: Users, title: "Built for India", text: "Clear UI, Indian brokers, NSE/BSE patterns — everything tuned for the local trader." },
+  { icon: Zap, title: "Fast & Affordable", text: "Full analysis in 30 seconds for ₹9. No subscriptions, just fair pricing." },
 ];
 
 function About() {
@@ -33,7 +33,7 @@ function About() {
             About <span className="bg-gradient-primary bg-clip-text text-transparent">TradeAI</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-            India ke 1.5 crore retail traders ke liye banayi gayi AI-powered analysis platform. Humara mission hai har trader ko institutional-grade insights dena — bina expensive subscriptions ke.
+            An AI-powered analysis platform built for India's 15 million retail traders. Our mission is to give every trader institutional-grade insights — without expensive subscriptions.
           </p>
         </div>
       </section>
@@ -54,10 +54,10 @@ function About() {
         <div className="mt-12 rounded-2xl border border-border bg-card p-8">
           <h2 className="text-2xl font-bold">Our Story</h2>
           <p className="mt-4 text-muted-foreground">
-            TradeAI shuru hua ek simple problem se — retail traders ko entry ke baad pata hi nahi chalta ki kya galat hua. Brokers charts dete hain, finfluencers tips dete hain, lekin <span className="text-foreground">honest, personalized post-trade analysis</span> kahin nahi milta.
+            TradeAI started with a simple problem — after entering a trade, retail traders rarely understand what went wrong. Brokers give charts, finfluencers give tips, but <span className="text-foreground">honest, personalized post-trade analysis</span> isn't available anywhere.
           </p>
           <p className="mt-4 text-muted-foreground">
-            Humne AI ko train kiya har trader ki actual screenshots samajhne ke liye — pattern, risk-reward, emotion, mistakes — sab ek dashboard mein. Goal: har trade se seekho, har month better bano.
+            We trained AI to understand a trader's actual screenshots — pattern, risk-reward, emotion, mistakes — all in one dashboard. Goal: learn from every trade, get better every month.
           </p>
         </div>
       </section>

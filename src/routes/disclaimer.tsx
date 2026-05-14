@@ -7,7 +7,7 @@ export const Route = createFileRoute("/disclaimer")({
   head: () => ({
     meta: [
       { title: "Disclaimer — TradeAI" },
-      { name: "description", content: "Important disclaimer regarding TradeAI analysis aur trading risks." },
+      { name: "description", content: "Important disclaimer regarding TradeAI analysis and trading risks." },
       { property: "og:title", content: "Disclaimer — TradeAI" },
       { property: "og:description", content: "Risk disclaimer and educational notice for TradeAI users." },
     ],
@@ -16,12 +16,12 @@ export const Route = createFileRoute("/disclaimer")({
 });
 
 const SECTIONS = [
-  { h: "Educational Purpose Only", p: "TradeAI sirf educational aur informational tool hai. Yeh SEBI registered investment advisor nahi hai aur koi bhi output investment advice nahi maani jaani chahiye." },
-  { h: "No Guarantee of Accuracy", p: "AI-generated analysis probabilistic hai. Patterns, predictions aur scores 100% accurate nahi hote. Past patterns future results guarantee nahi karte." },
-  { h: "Trading Involves Risk", p: "Stock market, F&O aur derivatives trading mein significant financial risk hai. Aap apna pura capital kho sakte ho. Sirf wahi paisa lagao jo afford kar sakte ho lose karna." },
-  { h: "Consult a Professional", p: "Koi bhi trading ya investment decision lene se pehle SEBI registered financial advisor se consult karo." },
-  { h: "No Liability", p: "TradeAI ya iski team kisi bhi trading loss, missed opportunity ya financial damage ke liye responsible nahi hai jo platform use karne se hua ho." },
-  { h: "User Responsibility", p: "Final trading decisions purely aapki responsibility hain. AI sirf ek assist tool hai, decision-maker nahi." },
+  { h: "Educational Purpose Only", p: "TradeAI is purely an educational and informational tool. It is not a SEBI registered investment advisor, and no output should be considered investment advice." },
+  { h: "No Guarantee of Accuracy", p: "AI-generated analysis is probabilistic. Patterns, predictions and scores are not 100% accurate. Past patterns do not guarantee future results." },
+  { h: "Trading Involves Risk", p: "Stock market, F&O and derivatives trading carries significant financial risk. You can lose your entire capital. Only invest what you can afford to lose." },
+  { h: "Consult a Professional", p: "Before making any trading or investment decision, consult a SEBI registered financial advisor." },
+  { h: "No Liability", p: "TradeAI and its team are not responsible for any trading loss, missed opportunity or financial damage that arises from using the platform." },
+  { h: "User Responsibility", p: "Final trading decisions are entirely your responsibility. AI is just an assist tool, not a decision-maker." },
 ];
 
 function Disclaimer() {
