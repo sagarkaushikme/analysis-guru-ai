@@ -31,7 +31,11 @@ function UploadPage() {
       let data = DUMMY_ANALYSIS;
       try {
         const res = await fetch("http://localhost:3001/api/analyze", { method: "POST", body: fd });
-        if (res.ok) data = await res.json();
+if (res.ok) {
+  const json = await res.json();
+  // Backend { success: true, data: {...} } return karta hai
+  data = json.data || json;
+}
       } catch { /* fallback */ }
       await new Promise((r) => setTimeout(r, 1500));
       store.useCredit();

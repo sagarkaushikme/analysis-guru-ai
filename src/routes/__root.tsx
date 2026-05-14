@@ -102,6 +102,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
+      <script src="https://checkout.razorpay.com/v1/checkout.js" />
       <body className="dark bg-background text-foreground antialiased">
         {children}
         <Toaster theme="dark" />
