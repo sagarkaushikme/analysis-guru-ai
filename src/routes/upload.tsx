@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { DUMMY_ANALYSIS, store, useStore } from "@/lib/analysis-store";
 
 export const Route = createFileRoute("/upload")({
-  head: () => ({ meta: [{ title: "Upload Trade — TradeAI" }, { name: "description", content: "Apna chart screenshot upload karo aur AI se full analysis pao." }] }),
+  head: () => ({ meta: [{ title: "Upload Trade — TradeAI" }, { name: "description", content: "Upload your chart screenshot and get a full AI analysis." }] }),
   component: UploadPage,
 });
 
@@ -21,8 +21,8 @@ function UploadPage() {
   const [loading, setLoading] = useState(false);
 
   const handleFile = async (file: File) => {
-    if (!file.type.startsWith("image/")) return toast.error("Sirf image files allowed hain");
-    if (credits <= 0) return toast.error("Credits khatam — buy karo");
+    if (!file.type.startsWith("image/")) return toast.error("Only image files are allowed");
+    if (credits <= 0) return toast.error("No credits left — please buy more");
     setLoading(true);
     try {
       // Try real API but fall back to dummy on failure
@@ -33,7 +33,7 @@ function UploadPage() {
         const res = await fetch("http://localhost:3001/api/analyze", { method: "POST", body: fd });
 if (res.ok) {
   const json = await res.json();
-  // Backend { success: true, data: {...} } return karta hai
+  // Backend returns { success: true, data: {...} }
   data = json.data || json;
 }
       } catch { /* fallback */ }
@@ -43,7 +43,7 @@ if (res.ok) {
       toast.success("Analysis ready!");
       nav({ to: "/dashboard" });
     } catch {
-      toast.error("Kuch galat ho gaya — try again");
+      toast.error("Something went wrong — please try again");
     } finally {
       setLoading(false);
     }
@@ -54,8 +54,8 @@ if (res.ok) {
       <Navbar variant="app" />
       <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
         <div className="text-center">
-          <h1 className="text-3xl font-bold sm:text-4xl">Trade Upload Karo</h1>
-          <p className="mt-2 text-muted-foreground">Chart screenshot drop karo — 15 seconds mein full breakdown.</p>
+          <h1 className="text-3xl font-bold sm:text-4xl">Upload Your Trade</h1>
+          <p className="mt-2 text-muted-foreground">Drop a chart screenshot — full breakdown in 15 seconds.</p>
         </div>
 
         <div
@@ -74,8 +74,8 @@ if (res.ok) {
           {loading ? (
             <div className="flex flex-col items-center gap-3">
               <Loader2 className="h-10 w-10 animate-spin text-primary" />
-              <p className="font-medium">AI analyze kar raha hai...</p>
-              <p className="text-sm text-muted-foreground">Pattern detect, risk calc, emotion check...</p>
+              <p className="font-medium">AI is analyzing...</p>
+              <p className="text-sm text-muted-foreground">Detecting pattern, calculating risk, checking emotion...</p>
             </div>
           ) : (
             <div className="flex flex-col items-center gap-4">
@@ -83,8 +83,8 @@ if (res.ok) {
                 <UploadIcon className="h-7 w-7 text-primary-foreground" />
               </div>
               <div>
-                <p className="text-lg font-semibold">Chart screenshot yahan drop karo</p>
-                <p className="mt-1 text-sm text-muted-foreground">ya click karke select karo • PNG, JPG (max 10MB)</p>
+                <p className="text-lg font-semibold">Drop your chart screenshot here</p>
+                <p className="mt-1 text-sm text-muted-foreground">or click to select • PNG, JPG (max 10MB)</p>
               </div>
               <Button className="bg-gradient-primary text-primary-foreground hover:opacity-90">Choose File</Button>
             </div>
