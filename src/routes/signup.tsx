@@ -1,10 +1,13 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { AuthShell } from "./login";
+import { signUp } from "@/lib/auth";
+import { store } from "@/lib/analysis-store";
 
 export const Route = createFileRoute("/signup")({
   head: () => ({
@@ -17,22 +20,33 @@ export const Route = createFileRoute("/signup")({
 });
 
 function Signup() {
-  const nav = useNavigate();
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const submit = (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !password) return toast.error("Please fill in all fields");
     if (password.length < 6) return toast.error("Password must be at least 6 characters");
-    toast.success("Account created! 2 free credits added.");
-    nav({ to: "/upload" });
+    setLoading(true);
+    try {
+      const data = await signUp(name, email, password);
+      store.setUser(data.user, data.user.credits);
+      toast.success("Account created! 2 free credits added.");
+      navigate({ to: "/upload" });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Signup failed";
+      toast.error(message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <AuthShell mode="signup">
-      <form onSubmit={submit} className="space-y-4">
+      <form onSubmit={handleSignup} className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="name">Name</Label>
           <Input
@@ -64,9 +78,10 @@ function Signup() {
         </div>
         <Button
           type="submit"
+          disabled={loading}
           className="w-full bg-gradient-primary text-primary-foreground hover:opacity-90"
         >
-          Create Account
+          {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Create Account"}
         </Button>
       </form>
       <p className="mt-4 text-center text-sm text-muted-foreground">
