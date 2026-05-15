@@ -91,11 +91,23 @@ export function Navbar({ variant = "marketing" }: { variant?: "marketing" | "app
 
           {user ? (
             <>
-              <div className="hidden items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-sm sm:flex">
-                <Wallet className="h-3.5 w-3.5 text-primary" />
-                <span className="text-muted-foreground">Credits:</span>
-                <span className="font-semibold text-foreground">{credits}</span>
-              </div>
+              {credits === 0 ? (
+                <Link
+                  to="/pricing"
+                  className="hidden items-center gap-2 rounded-full border border-danger/40 bg-danger/10 px-3 py-1.5 text-sm font-semibold text-danger hover:bg-danger/20 sm:flex"
+                >
+                  <Wallet className="h-3.5 w-3.5" />0 Credits — Buy Now
+                </Link>
+              ) : credits === 1 ? (
+                <div className="hidden items-center gap-2 rounded-full border border-warning/40 bg-warning/10 px-3 py-1.5 text-sm font-semibold text-warning sm:flex">
+                  <Wallet className="h-3.5 w-3.5" />1 Credit ⚠
+                </div>
+              ) : (
+                <div className="hidden items-center gap-2 rounded-full border border-success/40 bg-success/10 px-3 py-1.5 text-sm font-semibold text-success sm:flex">
+                  <Wallet className="h-3.5 w-3.5" />
+                  {credits} Credits
+                </div>
+              )}
               <span className="hidden text-sm text-muted-foreground md:inline">{user.name}</span>
               {variant === "app" && (
                 <Button
