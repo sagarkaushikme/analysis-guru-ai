@@ -33,8 +33,8 @@ function Signup() {
     setLoading(true);
     try {
       const data = await signUp(name, email, password);
-      store.setUser(data.user, data.user.credits);
-      toast.success("Account created! 2 free credits added.");
+      store.setUser(data.user, 0);
+      toast.success("Account created! Buy credits to start analyzing.");
       navigate({ to: "/upload" });
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Signup failed";
