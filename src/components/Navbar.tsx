@@ -17,22 +17,66 @@ export function Navbar({ variant = "marketing" }: { variant?: "marketing" | "app
 
         {variant === "marketing" ? (
           <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
-            <Link to="/" className="hover:text-foreground" activeOptions={{ exact: true }} activeProps={{ className: "text-foreground" }}>Home</Link>
-            <Link to="/pricing" className="hover:text-foreground" activeProps={{ className: "text-foreground" }}>Pricing</Link>
-            <Link to="/upload" className="hover:text-foreground" activeProps={{ className: "text-foreground" }}>App</Link>
+            <Link
+              to="/"
+              className="hover:text-foreground"
+              activeOptions={{ exact: true }}
+              activeProps={{ className: "text-foreground" }}
+            >
+              Home
+            </Link>
+            <Link
+              to="/pricing"
+              className="hover:text-foreground"
+              activeProps={{ className: "text-foreground" }}
+            >
+              Pricing
+            </Link>
+            <Link
+              to="/upload"
+              className="hover:text-foreground"
+              activeProps={{ className: "text-foreground" }}
+            >
+              App
+            </Link>
           </nav>
         ) : (
           <nav className="hidden items-center gap-6 text-sm text-muted-foreground md:flex">
-            <Link to="/upload" className="hover:text-foreground" activeProps={{ className: "text-foreground" }}>Upload</Link>
-            <Link to="/dashboard" className="hover:text-foreground" activeProps={{ className: "text-foreground" }}>Dashboard</Link>
-            <Link to="/history" className="hover:text-foreground" activeProps={{ className: "text-foreground" }}>History</Link>
+            <Link
+              to="/upload"
+              className="hover:text-foreground"
+              activeProps={{ className: "text-foreground" }}
+            >
+              Upload
+            </Link>
+            <Link
+              to="/dashboard"
+              className="hover:text-foreground"
+              activeProps={{ className: "text-foreground" }}
+            >
+              Dashboard
+            </Link>
+            <Link
+              to="/history"
+              className="hover:text-foreground"
+              activeProps={{ className: "text-foreground" }}
+            >
+              History
+            </Link>
           </nav>
         )}
 
         <div className="flex items-center gap-3">
           {variant === "app" && (
-            <Button asChild size="sm" variant="ghost" className="text-muted-foreground hover:text-foreground">
-              <Link to="/"><ArrowLeft className="h-4 w-4" /> <span className="hidden sm:inline">Home</span></Link>
+            <Button
+              asChild
+              size="sm"
+              variant="ghost"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              <Link to="/">
+                <ArrowLeft className="h-4 w-4" /> <span className="hidden sm:inline">Home</span>
+              </Link>
             </Button>
           )}
           {variant === "app" && (
@@ -44,13 +88,27 @@ export function Navbar({ variant = "marketing" }: { variant?: "marketing" | "app
           )}
           {variant === "marketing" ? (
             <>
-              <Link to="/login" className="hidden text-sm text-muted-foreground hover:text-foreground sm:block">Login</Link>
-              <Button asChild size="sm" className="bg-gradient-primary text-primary-foreground hover:opacity-90">
+              <Link
+                to="/login"
+                className="hidden text-sm text-muted-foreground hover:text-foreground sm:block"
+              >
+                Login
+              </Link>
+              <Button
+                asChild
+                size="sm"
+                className="bg-gradient-primary text-primary-foreground hover:opacity-90"
+              >
                 <Link to="/upload">Try Free</Link>
               </Button>
             </>
           ) : (
-            <Button asChild size="sm" variant="outline" className="border-primary/60 text-primary hover:bg-primary/10 hover:text-primary">
+            <Button
+              asChild
+              size="sm"
+              variant="outline"
+              className="border-primary/60 text-primary hover:bg-primary/10 hover:text-primary"
+            >
               <Link to="/pricing">Buy Credits</Link>
             </Button>
           )}

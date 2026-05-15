@@ -14,31 +14,47 @@ export function Footer() {
               <span className="text-lg font-semibold">TradeAI</span>
             </div>
             <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-              Get a full analysis of your trade — for just ₹9. AI-powered insights for Indian traders.
+              Get a full analysis of your trade — for just ₹9. AI-powered insights for Indian
+              traders.
             </p>
           </div>
 
           <div>
             <p className="text-sm font-semibold text-foreground">Product</p>
             <nav className="mt-3 flex flex-col gap-2 text-sm text-muted-foreground">
-              <Link to="/" className="hover:text-foreground">Home</Link>
-              <Link to="/pricing" className="hover:text-foreground">Pricing</Link>
-              <Link to="/about" className="hover:text-foreground">About</Link>
-              <Link to="/contact" className="hover:text-foreground">Contact</Link>
+              <Link to="/" className="hover:text-foreground">
+                Home
+              </Link>
+              <Link to="/pricing" className="hover:text-foreground">
+                Pricing
+              </Link>
+              <Link to="/about" className="hover:text-foreground">
+                About
+              </Link>
+              <Link to="/contact" className="hover:text-foreground">
+                Contact
+              </Link>
             </nav>
           </div>
 
           <div>
             <p className="text-sm font-semibold text-foreground">Legal</p>
             <nav className="mt-3 flex flex-col gap-2 text-sm text-muted-foreground">
-              <Link to="/privacy" className="hover:text-foreground">Privacy Policy</Link>
-              <Link to="/terms" className="hover:text-foreground">Terms & Conditions</Link>
-              <Link to="/disclaimer" className="hover:text-foreground">Disclaimer</Link>
+              <Link to="/privacy" className="hover:text-foreground">
+                Privacy Policy
+              </Link>
+              <Link to="/terms" className="hover:text-foreground">
+                Terms & Conditions
+              </Link>
+              <Link to="/disclaimer" className="hover:text-foreground">
+                Disclaimer
+              </Link>
             </nav>
           </div>
         </div>
         <p className="mt-8 border-t border-border/60 pt-6 text-xs text-muted-foreground">
-          Educational purposes only. Not SEBI registered advice. © {new Date().getFullYear()} TradeAI.
+          Educational purposes only. Not SEBI registered advice. © {new Date().getFullYear()}{" "}
+          TradeAI.
         </p>
       </div>
     </footer>

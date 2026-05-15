@@ -45,16 +45,16 @@
   --radius: 0.75rem;
 
   /* Dark-only palette mapped from spec */
-  --background: oklch(0.18 0.02 270);          /* #0F1117 */
+  --background: oklch(0.18 0.02 270); /* #0F1117 */
   --foreground: oklch(0.97 0.005 260);
-  --surface: oklch(0.235 0.025 270);            /* #1E2130 */
+  --surface: oklch(0.235 0.025 270); /* #1E2130 */
   --surface-elevated: oklch(0.27 0.028 270);
   --card: oklch(0.235 0.025 270);
   --card-foreground: oklch(0.97 0.005 260);
   --popover: oklch(0.235 0.025 270);
   --popover-foreground: oklch(0.97 0.005 260);
 
-  --primary: oklch(0.62 0.21 285);              /* #6C63FF */
+  --primary: oklch(0.62 0.21 285); /* #6C63FF */
   --primary-glow: oklch(0.72 0.18 285);
   --primary-foreground: oklch(0.99 0 0);
 
@@ -65,43 +65,82 @@
   --accent: oklch(0.3 0.05 285);
   --accent-foreground: oklch(0.97 0.005 260);
 
-  --success: oklch(0.74 0.16 165);              /* #00D395 */
+  --success: oklch(0.74 0.16 165); /* #00D395 */
   --success-foreground: oklch(0.15 0.02 165);
-  --danger: oklch(0.66 0.22 18);                /* #FF5370 */
+  --danger: oklch(0.66 0.22 18); /* #FF5370 */
   --danger-foreground: oklch(0.99 0 0);
-  --warning: oklch(0.8 0.15 75);                /* #FFB347 */
+  --warning: oklch(0.8 0.15 75); /* #FFB347 */
   --warning-foreground: oklch(0.2 0.05 75);
   --destructive: oklch(0.66 0.22 18);
   --destructive-foreground: oklch(0.99 0 0);
 
-  --border: oklch(0.32 0.02 270);               /* #2A2D3E */
+  --border: oklch(0.32 0.02 270); /* #2A2D3E */
   --input: oklch(0.27 0.025 270);
   --ring: oklch(0.62 0.21 285);
 
   --gradient-primary: linear-gradient(135deg, var(--primary), var(--primary-glow));
-  --gradient-hero: radial-gradient(ellipse at top, color-mix(in oklab, var(--primary) 25%, transparent), transparent 60%);
+  --gradient-hero: radial-gradient(
+    ellipse at top,
+    color-mix(in oklab, var(--primary) 25%, transparent),
+    transparent 60%
+  );
   --shadow-glow: 0 10px 40px -10px color-mix(in oklab, var(--primary) 50%, transparent);
   --shadow-card: 0 4px 24px -8px oklch(0 0 0 / 0.5);
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
-  html, body { background-color: var(--color-background); color: var(--color-foreground); font-family: var(--font-sans); }
-  body { min-height: 100vh; }
+  * {
+    border-color: var(--color-border);
+  }
+  html,
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+  body {
+    min-height: 100vh;
+  }
 }
 
 @layer utilities {
-  .bg-gradient-primary { background-image: var(--gradient-primary); }
-  .bg-hero-glow { background-image: var(--gradient-hero); }
-  .shadow-glow { box-shadow: var(--shadow-glow); }
-  .shadow-card { box-shadow: var(--shadow-card); }
-  .text-success { color: var(--success); }
-  .text-danger { color: var(--danger); }
-  .text-warning { color: var(--warning); }
-  .border-success { border-color: var(--success); }
-  .border-danger { border-color: var(--danger); }
-  .border-warning { border-color: var(--warning); }
-  .bg-success\/10 { background-color: color-mix(in oklab, var(--success) 12%, transparent); }
-  .bg-danger\/10 { background-color: color-mix(in oklab, var(--danger) 12%, transparent); }
-  .bg-warning\/10 { background-color: color-mix(in oklab, var(--warning) 12%, transparent); }
+  .bg-gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+  .bg-hero-glow {
+    background-image: var(--gradient-hero);
+  }
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  .text-success {
+    color: var(--success);
+  }
+  .text-danger {
+    color: var(--danger);
+  }
+  .text-warning {
+    color: var(--warning);
+  }
+  .border-success {
+    border-color: var(--success);
+  }
+  .border-danger {
+    border-color: var(--danger);
+  }
+  .border-warning {
+    border-color: var(--warning);
+  }
+  .bg-success\/10 {
+    background-color: color-mix(in oklab, var(--success) 12%, transparent);
+  }
+  .bg-danger\/10 {
+    background-color: color-mix(in oklab, var(--danger) 12%, transparent);
+  }
+  .bg-warning\/10 {
+    background-color: color-mix(in oklab, var(--warning) 12%, transparent);
+  }
 }

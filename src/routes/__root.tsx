@@ -75,10 +75,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "TradeAI — AI Trade Analysis for Indian Traders" },
-      { name: "description", content: "Get a full AI analysis of your trade for just ₹9. Pattern, mistakes, scenarios, roast — everything." },
+      {
+        name: "description",
+        content:
+          "Get a full AI analysis of your trade for just ₹9. Pattern, mistakes, scenarios, roast — everything.",
+      },
       { name: "author", content: "TradeAI" },
       { property: "og:title", content: "TradeAI — AI Trade Analysis" },
-      { property: "og:description", content: "Upload a screenshot and get a complete AI breakdown of your trade." },
+      {
+        property: "og:description",
+        content: "Upload a screenshot and get a complete AI breakdown of your trade.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
@@ -87,7 +94,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,

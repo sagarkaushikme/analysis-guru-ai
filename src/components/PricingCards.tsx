@@ -42,25 +42,19 @@ const PACKAGES = [
   },
 ];
 
-const FEATURES = [
-  "Full AI breakdown",
-  "Emotion analyzer",
-  "Roast mode",
-  "Credits never expire",
-];
+const FEATURES = ["Full AI breakdown", "Emotion analyzer", "Roast mode", "Credits never expire"];
 
-async function handleBuy(pkg: typeof PACKAGES[0]) {
+async function handleBuy(pkg: (typeof PACKAGES)[0]) {
   try {
-    const API_URL = import.meta.env.VITE_API_URL || 
-                   "http://localhost:3001/api";
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
 
     // Step 1: Create order
     const orderRes = await fetch(`${API_URL}/create-order`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ 
-        package: pkg.id, 
-        userId: "user123" 
+      body: JSON.stringify({
+        package: pkg.id,
+        userId: "user123",
       }),
     });
 
@@ -93,9 +87,7 @@ async function handleBuy(pkg: typeof PACKAGES[0]) {
 
         if (verifyRes.ok) {
           store.addCredits(pkg.credits);
-          toast.success(
-            `${pkg.credits} credits added! 🎉`
-          );
+          toast.success(`${pkg.credits} credits added! 🎉`);
         } else {
           toast.error("Payment verification failed — please contact support");
         }
@@ -111,7 +103,6 @@ async function handleBuy(pkg: typeof PACKAGES[0]) {
 
     const rzp = new (window as any).Razorpay(options);
     rzp.open();
-
   } catch (err) {
     console.error(err);
     toast.error("Something went wrong — please try again");
@@ -138,25 +129,16 @@ export function PricingCards() {
           )}
 
           {/* Price */}
-          <div className="text-sm font-medium text-muted-foreground">
-            {pkg.label}
-          </div>
+          <div className="text-sm font-medium text-muted-foreground">{pkg.label}</div>
           <div className="mt-3 flex items-baseline gap-1">
-            <span className="text-4xl font-bold tracking-tight">
-              {pkg.price}
-            </span>
+            <span className="text-4xl font-bold tracking-tight">{pkg.price}</span>
           </div>
-          <div className="mt-1 text-xs text-muted-foreground">
-            {pkg.perAnalysis}
-          </div>
+          <div className="mt-1 text-xs text-muted-foreground">{pkg.perAnalysis}</div>
 
           {/* Features */}
           <ul className="mt-5 space-y-2 text-sm">
             {FEATURES.map((f) => (
-              <li
-                key={f}
-                className="flex items-center gap-2 text-muted-foreground"
-              >
+              <li key={f} className="flex items-center gap-2 text-muted-foreground">
                 <Check className="h-4 w-4 flex-shrink-0 text-success" />
                 {f}
               </li>
