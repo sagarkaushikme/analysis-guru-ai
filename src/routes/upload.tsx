@@ -5,7 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { store, useStore } from "@/lib/analysis-store";
-import { authHeader } from "@/lib/auth";
+import { authHeader, getToken } from "@/lib/auth";
 
 export const Route = createFileRoute("/upload")({
   head: () => ({
