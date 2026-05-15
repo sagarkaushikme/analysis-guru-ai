@@ -26,12 +26,12 @@ export const Route = createFileRoute("/history")({
 function History() {
   const { history, user } = useStore();
   const nav = useNavigate();
+  const [date, setDate] = useState("");
+  const [range, setRange] = useState("all");
   if (!user) {
     nav({ to: "/login" });
     return null;
   }
-  const [date, setDate] = useState("");
-  const [range, setRange] = useState("all");
 
   const rows = useMemo(
     () =>
