@@ -35,7 +35,7 @@ function UploadPage() {
 
       const res = await fetch(`${import.meta.env.VITE_API_URL}/analyze`, {
         method: "POST",
-        headers: authHeader(),
+        headers: authHeader() as Record<string, string>,
         body: fd,
       });
 
