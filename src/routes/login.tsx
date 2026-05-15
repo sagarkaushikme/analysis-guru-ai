@@ -1,10 +1,12 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { TrendingUp } from "lucide-react";
+import { TrendingUp, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { signIn } from "@/lib/auth";
+import { store } from "@/lib/analysis-store";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -17,20 +19,31 @@ export const Route = createFileRoute("/login")({
 });
 
 function Login() {
-  const nav = useNavigate();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const submit = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) return toast.error("Please fill in both email and password");
-    toast.success("Logged in!");
-    nav({ to: "/upload" });
+    setLoading(true);
+    try {
+      const data = await signIn(email, password);
+      store.setUser(data.user, data.user.credits);
+      toast.success(`Welcome back ${data.user.name}!`);
+      navigate({ to: "/upload" });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Login failed";
+      toast.error(message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <AuthShell mode="login">
-      <form onSubmit={submit} className="space-y-4">
+      <form onSubmit={handleLogin} className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
           <Input
@@ -53,9 +66,10 @@ function Login() {
         </div>
         <Button
           type="submit"
+          disabled={loading}
           className="w-full bg-gradient-primary text-primary-foreground hover:opacity-90"
         >
-          Login
+          {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Login"}
         </Button>
       </form>
       <p className="mt-4 text-center text-sm text-muted-foreground">
@@ -95,18 +109,6 @@ export function AuthShell({
               : "You'll get 2 free analyses on signup."}
           </p>
           <div className="mt-6">{children}</div>
-          <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
-            <div className="h-px flex-1 bg-border" /> OR <div className="h-px flex-1 bg-border" />
-          </div>
-          <Button variant="outline" className="w-full">
-            <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
-              <path
-                fill="#EA4335"
-                d="M12 11v2.8h6.5c-.3 1.6-1.9 4.7-6.5 4.7-3.9 0-7.1-3.2-7.1-7.2S8.1 4 12 4c2.2 0 3.7.9 4.6 1.7l3.1-3C17.7 1 15.1 0 12 0 5.4 0 0 5.4 0 12s5.4 12 12 12c6.9 0 11.5-4.9 11.5-11.7 0-.8-.1-1.4-.2-2H12z"
-              />
-            </svg>
-            Continue with Google
-          </Button>
         </div>
       </div>
     </div>
