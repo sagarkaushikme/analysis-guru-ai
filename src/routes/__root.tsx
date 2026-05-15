@@ -132,8 +132,11 @@ function RootComponent() {
     getMe()
       .then((user) => {
         if (user) store.setUser(user, user.credits ?? 0);
+        else store.finishInit();
       })
-      .catch(() => { });
+      .catch(() => {
+        store.finishInit();
+      });
   }, []);
 
   return (

@@ -103,6 +103,7 @@ type State = {
   credits: number;
   current: Analysis | null;
   history: Analysis[];
+  initialized: boolean;
   user: {
     id: string;
     email: string;
@@ -114,6 +115,7 @@ let state: State = {
   credits: 0,
   current: null,
   history: SAMPLE_HISTORY,
+  initialized: false,
   user: null,
 };
 
@@ -139,7 +141,11 @@ export const store = {
     emit();
   },
   setUser(user: State["user"], credits: number) {
-    state = { ...state, user, credits };
+    state = { ...state, user, credits, initialized: true };
+    emit();
+  },
+  finishInit() {
+    state = { ...state, initialized: true };
     emit();
   },
   logout() {

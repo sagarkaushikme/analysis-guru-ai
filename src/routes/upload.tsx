@@ -21,10 +21,18 @@ const APPS = ["Zerodha", "Upstox", "Angel One", "Groww", "TradingView"];
 
 function UploadPage() {
   const navigate = useNavigate();
-  const { credits, history, user } = useStore();
+  const { credits, history, user, initialized } = useStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const [drag, setDrag] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  if (!initialized) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+      </div>
+    );
+  }
 
   if (!user) {
     navigate({ to: "/login" });
@@ -123,9 +131,8 @@ function UploadPage() {
             if (f) handleFile(f);
           }}
           onClick={() => inputRef.current?.click()}
-          className={`mt-10 cursor-pointer rounded-3xl border-2 border-dashed p-12 text-center transition-all ${
-            drag ? "border-primary bg-primary/10" : "border-border bg-card hover:border-primary/60"
-          }`}
+          className={`mt-10 cursor-pointer rounded-3xl border-2 border-dashed p-12 text-center transition-all ${drag ? "border-primary bg-primary/10" : "border-border bg-card hover:border-primary/60"
+            }`}
         >
           <input
             ref={inputRef}
