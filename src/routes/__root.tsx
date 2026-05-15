@@ -114,8 +114,8 @@ function RootShell({ children }: { children: React.ReactNode }) {
     <html lang="en" className="dark">
       <head>
         <HeadContent />
+        <script src="https://checkout.razorpay.com/v1/checkout.js" />
       </head>
-      <script src="https://checkout.razorpay.com/v1/checkout.js" />
       <body className="dark bg-background text-foreground antialiased">
         {children}
         <Toaster theme="dark" />
@@ -133,7 +133,7 @@ function RootComponent() {
       .then((user) => {
         if (user) store.setUser(user, user.credits ?? 0);
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   return (
