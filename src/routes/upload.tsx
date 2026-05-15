@@ -214,7 +214,7 @@ function UploadPage() {
                   <Button
                     onClick={() => {
                       store.setCurrent(h);
-                      nav({ to: "/dashboard" });
+                      navigate({ to: "/dashboard" });
                     }}
                     variant="outline"
                     size="sm"
