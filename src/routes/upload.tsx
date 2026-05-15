@@ -20,11 +20,82 @@ export const Route = createFileRoute("/upload")({
 const APPS = ["Zerodha", "Upstox", "Angel One", "Groww", "TradingView"];
 
 function UploadPage() {
-  const nav = useNavigate();
-  const { credits, history } = useStore();
+  const navigate = useNavigate();
+  const { credits, history, user } = useStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const [drag, setDrag] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  if (!user) {
+    navigate({ to: "/login" });
+    return null;
+  }
+
+  const handleFile = async (file: File) => {
+    if (!file.type.startsWith("image/")) {
+      toast.error("Sirf PNG/JPG upload karo");
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error("File 10MB se chhoti honi chahiye");
+      return;
+    }
+
+    const { credits: currentCredits } = store.get();
+    if (currentCredits <= 0) {
+      toast.error("Credits khatam! ₹9 mein 1 credit lo.");
+      navigate({ to: "/pricing" });
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const fd = new FormData();
+      fd.append("screenshot", file);
+
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/analyze`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${getToken()}` },
+        body: fd,
+      });
+      const result = await res.json().catch(() => ({}));
+
+      if (res.status === 401) {
+        toast.error("Session expire hua - login karo");
+        navigate({ to: "/login" });
+        return;
+      }
+      if (res.status === 402) {
+        toast.error("Credits khatam! ₹9 mein 1 credit lo.");
+        navigate({ to: "/pricing" });
+        return;
+      }
+      if (res.status === 429) {
+        toast.error("Thoda ruko - bahut requests ho gayi!");
+        return;
+      }
+      if (res.status === 400) {
+        toast.error(result.error || "Valid chart screenshot lo");
+        return;
+      }
+
+      if (result.success) {
+        store.setCredits(result.credits_remaining);
+        if (result.warning) toast.warning(result.warning);
+        store.setCurrent({
+          ...result.data,
+          id: crypto.randomUUID(),
+          date: new Date().toISOString(),
+        });
+        toast.success("Analysis ready!");
+        navigate({ to: "/dashboard" });
+      }
+    } catch {
+      toast.error("Network error - internet check karo");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleFile = async (file: File) => {
     if (!file.type.startsWith("image/")) return toast.error("Only image files are allowed");
