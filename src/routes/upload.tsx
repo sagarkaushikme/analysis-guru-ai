@@ -28,28 +28,43 @@ function UploadPage() {
 
   const handleFile = async (file: File) => {
     if (!file.type.startsWith("image/")) return toast.error("Only image files are allowed");
-    if (credits <= 0) return toast.error("No credits left — please buy more");
     setLoading(true);
     try {
-      // Try real API but fall back to dummy on failure
       const fd = new FormData();
       fd.append("screenshot", file);
-      let data = DUMMY_ANALYSIS;
-      try {
-        const res = await fetch("http://localhost:3001/api/analyze", { method: "POST", body: fd });
-        if (res.ok) {
-          const json = await res.json();
-          // Backend returns { success: true, data: {...} }
-          data = json.data || json;
-        }
-      } catch {
-        /* fallback */
+
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/analyze`, {
+        method: "POST",
+        headers: authHeader(),
+        body: fd,
+      });
+
+      if (res.status === 402) {
+        toast.error("Out of credits — please buy more");
+        nav({ to: "/pricing" });
+        return;
       }
-      await new Promise((r) => setTimeout(r, 1500));
-      store.useCredit();
-      store.setCurrent({ ...data, id: crypto.randomUUID(), date: new Date().toISOString() });
-      toast.success("Analysis ready!");
-      nav({ to: "/dashboard" });
+      if (res.status === 401) {
+        toast.error("Please log in first");
+        nav({ to: "/login" });
+        return;
+      }
+
+      const result = await res.json();
+      if (result.success) {
+        if (typeof result.credits_remaining === "number") {
+          store.setCredits(result.credits_remaining);
+        }
+        store.setCurrent({
+          ...result.data,
+          id: crypto.randomUUID(),
+          date: new Date().toISOString(),
+        });
+        toast.success("Analysis ready!");
+        nav({ to: "/dashboard" });
+      } else {
+        toast.error(result.error || "Analysis failed");
+      }
     } catch {
       toast.error("Something went wrong — please try again");
     } finally {
