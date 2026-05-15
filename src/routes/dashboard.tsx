@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { DUMMY_ANALYSIS, useStore } from "@/lib/analysis-store";
@@ -77,13 +77,29 @@ function Card({
 }
 
 function Dashboard() {
-  const { current } = useStore();
+  const { current, user, credits } = useStore();
+  const navigate = useNavigate();
+  if (!user) {
+    navigate({ to: "/login" });
+    return null;
+  }
   const a = current ?? DUMMY_ANALYSIS;
 
   return (
     <div className="min-h-screen bg-background">
       <Navbar variant="app" />
       <main className="mx-auto max-w-7xl space-y-5 px-4 py-8 sm:px-6">
+        {credits === 0 && (
+          <div className="flex flex-col items-center justify-between gap-3 rounded-2xl border border-danger/40 bg-danger/10 p-5 sm:flex-row">
+            <p className="font-semibold text-danger">Credits khatam!</p>
+            <Button
+              onClick={() => navigate({ to: "/pricing" })}
+              className="bg-gradient-primary text-primary-foreground hover:opacity-90"
+            >
+              ₹9 mein 1 credit lo →
+            </Button>
+          </div>
+        )}
         {/* Header card */}
         <div className="rounded-2xl border border-border bg-card p-6">
           <div className="flex flex-col gap-5 md:flex-row md:items-center">

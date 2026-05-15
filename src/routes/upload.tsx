@@ -5,7 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { store, useStore } from "@/lib/analysis-store";
-import { authHeader } from "@/lib/auth";
+import { authHeader, getToken } from "@/lib/auth";
 
 export const Route = createFileRoute("/upload")({
   head: () => ({
@@ -20,14 +20,34 @@ export const Route = createFileRoute("/upload")({
 const APPS = ["Zerodha", "Upstox", "Angel One", "Groww", "TradingView"];
 
 function UploadPage() {
-  const nav = useNavigate();
-  const { credits, history } = useStore();
+  const navigate = useNavigate();
+  const { credits, history, user } = useStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const [drag, setDrag] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  if (!user) {
+    navigate({ to: "/login" });
+    return null;
+  }
+
   const handleFile = async (file: File) => {
-    if (!file.type.startsWith("image/")) return toast.error("Only image files are allowed");
+    if (!file.type.startsWith("image/")) {
+      toast.error("Sirf PNG/JPG upload karo");
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error("File 10MB se chhoti honi chahiye");
+      return;
+    }
+
+    const { credits: currentCredits } = store.get();
+    if (currentCredits <= 0) {
+      toast.error("Credits khatam! ₹9 mein 1 credit lo.");
+      navigate({ to: "/pricing" });
+      return;
+    }
+
     setLoading(true);
     try {
       const fd = new FormData();
@@ -35,42 +55,49 @@ function UploadPage() {
 
       const res = await fetch(`${import.meta.env.VITE_API_URL}/analyze`, {
         method: "POST",
-        headers: authHeader() as Record<string, string>,
+        headers: { Authorization: `Bearer ${getToken()}` },
         body: fd,
       });
+      const result = await res.json().catch(() => ({}));
 
-      if (res.status === 402) {
-        toast.error("Out of credits — please buy more");
-        nav({ to: "/pricing" });
-        return;
-      }
       if (res.status === 401) {
-        toast.error("Please log in first");
-        nav({ to: "/login" });
+        toast.error("Session expire hua - login karo");
+        navigate({ to: "/login" });
+        return;
+      }
+      if (res.status === 402) {
+        toast.error("Credits khatam! ₹9 mein 1 credit lo.");
+        navigate({ to: "/pricing" });
+        return;
+      }
+      if (res.status === 429) {
+        toast.error("Thoda ruko - bahut requests ho gayi!");
+        return;
+      }
+      if (res.status === 400) {
+        toast.error(result.error || "Valid chart screenshot lo");
         return;
       }
 
-      const result = await res.json();
       if (result.success) {
-        if (typeof result.credits_remaining === "number") {
-          store.setCredits(result.credits_remaining);
-        }
+        store.setCredits(result.credits_remaining);
+        if (result.warning) toast.warning(result.warning);
         store.setCurrent({
           ...result.data,
           id: crypto.randomUUID(),
           date: new Date().toISOString(),
         });
         toast.success("Analysis ready!");
-        nav({ to: "/dashboard" });
-      } else {
-        toast.error(result.error || "Analysis failed");
+        navigate({ to: "/dashboard" });
       }
     } catch {
-      toast.error("Something went wrong — please try again");
+      toast.error("Network error - internet check karo");
     } finally {
       setLoading(false);
     }
   };
+
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -187,7 +214,7 @@ function UploadPage() {
                   <Button
                     onClick={() => {
                       store.setCurrent(h);
-                      nav({ to: "/dashboard" });
+                      navigate({ to: "/dashboard" });
                     }}
                     variant="outline"
                     size="sm"
