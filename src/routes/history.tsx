@@ -24,8 +24,12 @@ export const Route = createFileRoute("/history")({
 });
 
 function History() {
-  const { history } = useStore();
+  const { history, user } = useStore();
   const nav = useNavigate();
+  if (!user) {
+    nav({ to: "/login" });
+    return null;
+  }
   const [date, setDate] = useState("");
   const [range, setRange] = useState("all");
 
