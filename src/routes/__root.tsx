@@ -128,6 +128,14 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
+  useEffect(() => {
+    getMe()
+      .then((user) => {
+        if (user) store.setUser(user, user.credits ?? 0);
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
