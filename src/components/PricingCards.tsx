@@ -2,6 +2,7 @@ import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { store } from "@/lib/analysis-store";
 import { toast } from "sonner";
+import { getToken } from "@/lib/auth";
 
 const PACKAGES = [
   {
@@ -47,18 +48,29 @@ const FEATURES = ["Full AI breakdown", "Emotion analyzer", "Roast mode", "Credit
 async function handleBuy(pkg: (typeof PACKAGES)[0]) {
   try {
     const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
+    const token = getToken();
+
+    if (!token) {
+      toast.error("Pehle login karo!");
+      return;
+    }
 
     // Step 1: Create order
     const orderRes = await fetch(`${API_URL}/create-order`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
         package: pkg.id,
-        userId: "user123",
       }),
     });
 
-    if (!orderRes.ok) throw new Error("Order create fail");
+    if (!orderRes.ok) {
+      const err = await orderRes.json();
+      throw new Error(err.error || "Order create fail");
+    }
     const order = await orderRes.json();
 
     // Step 2: Razorpay checkout
@@ -77,10 +89,12 @@ async function handleBuy(pkg: (typeof PACKAGES)[0]) {
         // Step 3: Verify payment
         const verifyRes = await fetch(`${API_URL}/verify`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
           body: JSON.stringify({
             ...response,
-            userId: "user123",
             credits: pkg.credits,
           }),
         });
@@ -115,11 +129,10 @@ export function PricingCards() {
       {PACKAGES.map((pkg) => (
         <div
           key={pkg.id}
-          className={`relative rounded-2xl border p-6 transition-all hover:-translate-y-1 ${
-            pkg.popular
+          className={`relative rounded-2xl border p-6 transition-all hover:-translate-y-1 ${pkg.popular
               ? "border-primary/60 bg-gradient-to-b from-primary/10 to-card shadow-glow"
               : "border-border bg-card hover:border-primary/40"
-          }`}
+            }`}
         >
           {/* Best value badge */}
           {pkg.popular && (
@@ -148,11 +161,10 @@ export function PricingCards() {
           {/* Buy button */}
           <Button
             onClick={() => handleBuy(pkg)}
-            className={`mt-6 w-full ${
-              pkg.popular
+            className={`mt-6 w-full ${pkg.popular
                 ? "bg-gradient-primary text-primary-foreground hover:opacity-90"
                 : "variant-outline"
-            }`}
+              }`}
             variant={pkg.popular ? "default" : "outline"}
           >
             Buy {pkg.price}
