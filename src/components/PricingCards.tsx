@@ -99,11 +99,13 @@ async function handleBuy(pkg: (typeof PACKAGES)[0]) {
           }),
         });
 
+        const data = await verifyRes.json().catch(() => ({}));
         if (verifyRes.ok) {
           store.addCredits(pkg.credits);
-          toast.success(`${pkg.credits} credits added! 🎉`);
+          toast.success(`${pkg.credits} credits add ho gaye!`);
+          window.location.href = "/upload";
         } else {
-          toast.error("Payment verification failed — please contact support");
+          toast.error(data?.error || "Payment verify fail - support se contact karo");
         }
       },
       prefill: { name: "Trader" },
