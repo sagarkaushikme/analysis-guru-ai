@@ -86,6 +86,10 @@ function UploadPage() {
         toast.error(result.error || "Valid chart screenshot lo");
         return;
       }
+      if (res.status === 503) {
+        toast.error(result.error || "Service busy — Try after some time");
+        return;
+      }
       if (res.status === 500 && result.credits_remaining != null) {
         store.setCredits(result.credits_remaining);
         toast.error(result.error || "Analysis fail — credit restored");
