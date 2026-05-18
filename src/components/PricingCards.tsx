@@ -72,8 +72,6 @@ async function handleBuy(
     }
 
     const appliedPromo = promoData && promoData.package_id === pkg.id ? promoData : null;
-    const originalAmount = pkg.amount;
-    const finalAmount = appliedPromo ? appliedPromo.final_amount : pkg.amount;
 
     // Step 1: Create order
     const orderRes = await fetch(`${API_URL}/create-order`, {
@@ -114,18 +112,16 @@ async function handleBuy(
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            ...response,
-            credits: pkg.credits,
-            promo_code: appliedPromo ? promoCode : undefined,
-            original_amount: originalAmount,
-            final_amount: finalAmount,
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
           }),
         });
 
         const data = await verifyRes.json().catch(() => ({}));
         if (verifyRes.ok) {
-          store.addCredits(pkg.credits);
-          toast.success(`${pkg.credits} credits add ho gaye!`);
+          store.setCredits(data.total_credits ?? store.get().credits + (data.credits_added ?? pkg.credits));
+          toast.success(data.message || `${data.credits_added} credits add ho gaye!`);
           window.location.href = "/upload";
         } else {
           toast.error(data?.error || "Payment verify fail - support se contact karo");

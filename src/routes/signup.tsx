@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { AuthShell } from "./login";
 import { signUp } from "@/lib/auth";
 import { store } from "@/lib/analysis-store";
+import { loadUserHistory } from "@/lib/analyses";
 
 export const Route = createFileRoute("/signup")({
   head: () => ({
@@ -29,11 +30,12 @@ function Signup() {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !password) return toast.error("Please fill in all fields");
-    if (password.length < 6) return toast.error("Password must be at least 6 characters");
+    if (password.length < 8) return toast.error("Password must be at least 8 characters");
     setLoading(true);
     try {
       const data = await signUp(name, email, password);
-      store.setUser(data.user, 0);
+      store.setUser(data.user, data.user.credits ?? 0);
+      await loadUserHistory();
       toast.success("Account created! Buy credits to start analyzing.");
       navigate({ to: "/upload" });
     } catch (err: unknown) {

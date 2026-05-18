@@ -71,38 +71,12 @@ export const DUMMY_ANALYSIS: Analysis = {
   indicators: { rsi: "58 - Neutral", macd: "Positive crossover", ema: "Above 20 EMA" },
 };
 
-const SAMPLE_HISTORY: Analysis[] = [
-  {
-    ...DUMMY_ANALYSIS,
-    id: "h1",
-    instrument: "NIFTY 22500PE",
-    trade_score: 5,
-    pattern_name: "Doji",
-    date: new Date(Date.now() - 86400000).toISOString(),
-  },
-  {
-    ...DUMMY_ANALYSIS,
-    id: "h2",
-    instrument: "RELIANCE",
-    trade_score: 8,
-    pattern_name: "Hammer",
-    date: new Date(Date.now() - 2 * 86400000).toISOString(),
-  },
-  {
-    ...DUMMY_ANALYSIS,
-    id: "h3",
-    instrument: "TCS",
-    trade_score: 4,
-    pattern_name: "Shooting Star",
-    pattern_type: "bearish",
-    date: new Date(Date.now() - 3 * 86400000).toISOString(),
-  },
-];
-
 type State = {
   credits: number;
   current: Analysis | null;
   history: Analysis[];
+  historyLoading: boolean;
+  historyLoaded: boolean;
   initialized: boolean;
   user: {
     id: string;
@@ -114,7 +88,9 @@ type State = {
 let state: State = {
   credits: 0,
   current: null,
-  history: SAMPLE_HISTORY,
+  history: [],
+  historyLoading: false,
+  historyLoaded: false,
   initialized: false,
   user: null,
 };
@@ -140,6 +116,19 @@ export const store = {
     state = { ...state, credits: n };
     emit();
   },
+  setHistory(analyses: Analysis[]) {
+    state = {
+      ...state,
+      history: analyses,
+      historyLoading: false,
+      historyLoaded: true,
+    };
+    emit();
+  },
+  setHistoryLoading(loading: boolean) {
+    state = { ...state, historyLoading: loading };
+    emit();
+  },
   setUser(user: State["user"], credits: number) {
     state = { ...state, user, credits, initialized: true };
     emit();
@@ -150,10 +139,13 @@ export const store = {
   },
   logout() {
     state = {
-      ...state,
-      user: null,
       credits: 0,
       current: null,
+      history: [],
+      historyLoading: false,
+      historyLoaded: false,
+      initialized: true,
+      user: null,
     };
     emit();
   },

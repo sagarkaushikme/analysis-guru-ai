@@ -21,7 +21,7 @@ const APPS = ["Zerodha", "Upstox", "Angel One", "Groww", "TradingView"];
 
 function UploadPage() {
   const navigate = useNavigate();
-  const { credits, history, user, initialized } = useStore();
+  const { credits, history, historyLoading, historyLoaded, user, initialized } = useStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const [drag, setDrag] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -86,14 +86,19 @@ function UploadPage() {
         toast.error(result.error || "Valid chart screenshot lo");
         return;
       }
+      if (res.status === 500 && result.credits_remaining != null) {
+        store.setCredits(result.credits_remaining);
+        toast.error(result.error || "Analysis fail — credit restored");
+        return;
+      }
 
       if (result.success) {
         store.setCredits(result.credits_remaining);
         if (result.warning) toast.warning(result.warning);
         store.setCurrent({
           ...result.data,
-          id: crypto.randomUUID(),
-          date: new Date().toISOString(),
+          id: result.data.id ?? crypto.randomUUID(),
+          date: result.data.date ?? new Date().toISOString(),
         });
         toast.success("Analysis ready!");
         navigate({ to: "/dashboard" });
@@ -186,10 +191,28 @@ function UploadPage() {
         <section className="mt-16">
           <div className="flex items-end justify-between">
             <h2 className="text-xl font-semibold">Recent Analyses</h2>
-            <Link to="/history" className="text-sm text-primary hover:underline">
-              View all →
-            </Link>
+            {history.length > 0 && (
+              <Link to="/history" className="text-sm text-primary hover:underline">
+                View all →
+              </Link>
+            )}
           </div>
+          {historyLoading && !historyLoaded ? (
+            <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {[1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="h-40 animate-pulse rounded-2xl border border-border bg-card"
+                />
+              ))}
+            </div>
+          ) : history.length === 0 ? (
+            <div className="mt-5 rounded-2xl border border-dashed border-border bg-card py-12 text-center">
+              <p className="text-sm text-muted-foreground">
+                No analyses yet. Upload your first chart above.
+              </p>
+            </div>
+          ) : (
           <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {history.slice(0, 3).map((h) => {
               const c =
@@ -233,6 +256,7 @@ function UploadPage() {
               );
             })}
           </div>
+          )}
         </section>
       </main>
     </div>

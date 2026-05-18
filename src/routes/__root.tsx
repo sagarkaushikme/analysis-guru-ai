@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { getMe } from "@/lib/auth";
 import { store } from "@/lib/analysis-store";
+import { loadUserHistory } from "@/lib/analyses";
 
 import appCss from "../styles.css?url";
 
@@ -130,9 +131,13 @@ function RootComponent() {
 
   useEffect(() => {
     getMe()
-      .then((user) => {
-        if (user) store.setUser(user, user.credits ?? 0);
-        else store.finishInit();
+      .then(async (user) => {
+        if (user) {
+          store.setUser(user, user.credits ?? 0);
+          await loadUserHistory();
+        } else {
+          store.finishInit();
+        }
       })
       .catch(() => {
         store.finishInit();

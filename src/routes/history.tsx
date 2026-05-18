@@ -11,7 +11,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { store, useStore } from "@/lib/analysis-store";
-import { Inbox } from "lucide-react";
+import { Inbox, Loader2, SearchX } from "lucide-react";
+
+function matchesLocalDate(isoDate: string, filterDate: string) {
+  if (!filterDate) return true;
+  const d = new Date(isoDate);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}` === filterDate;
+}
 
 export const Route = createFileRoute("/history")({
   head: () => ({
@@ -24,7 +33,7 @@ export const Route = createFileRoute("/history")({
 });
 
 function History() {
-  const { history, user } = useStore();
+  const { history, historyLoading, historyLoaded, user } = useStore();
   const nav = useNavigate();
   const [date, setDate] = useState("");
   const [range, setRange] = useState("all");
@@ -36,7 +45,7 @@ function History() {
   const rows = useMemo(
     () =>
       history.filter((h) => {
-        if (date && !h.date.startsWith(date)) return false;
+        if (!matchesLocalDate(h.date, date)) return false;
         if (range === "high" && h.trade_score < 7) return false;
         if (range === "mid" && (h.trade_score < 5 || h.trade_score >= 7)) return false;
         if (range === "low" && h.trade_score >= 5) return false;
@@ -44,6 +53,8 @@ function History() {
       }),
     [history, date, range],
   );
+
+  const hasFilters = Boolean(date) || range !== "all";
 
   return (
     <div className="min-h-screen bg-background">
@@ -77,17 +88,43 @@ function History() {
           </div>
         </div>
 
-        {rows.length === 0 ? (
+        {historyLoading && !historyLoaded ? (
+          <div className="mt-16 flex flex-col items-center gap-3 py-20 text-muted-foreground">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            <p className="text-sm">Loading your analyses...</p>
+          </div>
+        ) : rows.length === 0 ? (
           <div className="mt-16 flex flex-col items-center gap-4 rounded-2xl border border-dashed border-border bg-card py-20 text-center">
-            <Inbox className="h-10 w-10 text-muted-foreground" />
-            <p className="text-lg font-semibold">No analyses yet</p>
-            <p className="text-sm text-muted-foreground">Upload one to get started!</p>
-            <Button
-              asChild
-              className="bg-gradient-primary text-primary-foreground hover:opacity-90"
-            >
-              <Link to="/upload">Upload Trade</Link>
-            </Button>
+            {hasFilters && history.length > 0 ? (
+              <>
+                <SearchX className="h-10 w-10 text-muted-foreground" />
+                <p className="text-lg font-semibold">No matches</p>
+                <p className="text-sm text-muted-foreground">
+                  Try a different date or score filter.
+                </p>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setDate("");
+                    setRange("all");
+                  }}
+                >
+                  Clear filters
+                </Button>
+              </>
+            ) : (
+              <>
+                <Inbox className="h-10 w-10 text-muted-foreground" />
+                <p className="text-lg font-semibold">No analyses yet</p>
+                <p className="text-sm text-muted-foreground">Upload one to get started!</p>
+                <Button
+                  asChild
+                  className="bg-gradient-primary text-primary-foreground hover:opacity-90"
+                >
+                  <Link to="/upload">Upload Trade</Link>
+                </Button>
+              </>
+            )}
           </div>
         ) : (
           <div className="mt-8 overflow-hidden rounded-2xl border border-border bg-card">

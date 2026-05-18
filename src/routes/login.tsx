@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { signIn } from "@/lib/auth";
 import { store } from "@/lib/analysis-store";
+import { loadUserHistory } from "@/lib/analyses";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -31,6 +32,7 @@ function Login() {
     try {
       const data = await signIn(email, password);
       store.setUser(data.user, data.user.credits);
+      await loadUserHistory();
       toast.success(`Welcome back ${data.user.name}!`);
       navigate({ to: "/upload" });
     } catch (err: unknown) {
